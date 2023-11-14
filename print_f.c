@@ -8,31 +8,62 @@
 
 int _printf(const char *format, ...)
 {
-	int printed_chars;
-	conver_t f_list[] = {
-		{"%", print_percent},
-		{"d", print_dec},
-		{"i", print_int},
-		{"c", print_char},
-		{"s", print_string},
-		{"b", print_bin},
-		{"u", print_unsigned},
-		{"o", print_octal},
-		{"x", print_hex},
-		{"X", print_HEX},
-		{"S", print_String},
-		{"p", print_pointer},
-		{"r", print_rev},
-		{"R", print_rot13},
-		{NULL, NULL},
-	};
+
+	int ch_print = 0;
+
 	va_list arg_list;
 
 	if (format == NULL)
+	{
 		return (-1);
+	}
 
 	va_start(arg_list, format);
-	printed_chars = format_reciever(format, f_list, arg_list);
+
+	while (*format)
+	{
+		if (*format != '%'){
+			write(1, format, 1);
+			ch_print++;
+		}
+		else 
+		{
+			format++;
+
+			if (*format == '\0')
+			{
+				break;
+			}
+
+			if (*format == '%')
+			{
+				write(1, format, 1);
+				ch_print++;
+			}
+			else if (*format == 'c')
+			{
+				char c = va_arg(arg_list, int);
+				write(1, &c, 1);
+				ch_print++;
+			}
+			else if (*format == 's')
+			{
+				char *str = va_arg(arg_list, char*);
+				int str_l = 0;
+
+				while (str[str_l] != '\0')
+					str_l++;
+
+				write(1, str, str_l);
+				ch_print += str_l;
+			}
+		}
+
+		format++;
+	}
+
 	va_end(arg_list);
-	return (printed_chars);
+
+	return ch_print;
+
 }
