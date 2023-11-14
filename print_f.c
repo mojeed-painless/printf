@@ -14,26 +14,23 @@ int _printf(const char *format, ...)
 	va_list arg_list;
 
 	if (format == NULL)
-	{
 		return (-1);
-	}
 
 	va_start(arg_list, format);
 
 	while (*format)
 	{
-		if (*format != '%'){
+		if (*format != '%')
+		{
 			write(1, format, 1);
 			ch_print++;
 		}
-		else 
+		else
 		{
 			format++;
 
 			if (*format == '\0')
-			{
 				break;
-			}
 
 			if (*format == '%')
 			{
@@ -43,6 +40,7 @@ int _printf(const char *format, ...)
 			else if (*format == 'c')
 			{
 				char c = va_arg(arg_list, int);
+
 				write(1, &c, 1);
 				ch_print++;
 			}
@@ -52,7 +50,7 @@ int _printf(const char *format, ...)
 				int str_l = 0;
 
 				while (str[str_l] != '\0')
-					str_l++;
+				str_l++;
 
 				write(1, str, str_l);
 				ch_print += str_l;
@@ -64,6 +62,6 @@ int _printf(const char *format, ...)
 
 	va_end(arg_list);
 
-	return ch_print;
+	return (ch_print);
 
 }
