@@ -9,14 +9,14 @@
 int _printf(const char *format, ...)
 {
 	int printed_chars;
-	conv_f f_list[] = {
+	conver_t f_list[] = {
 		{"%", print_percent},
-		{"d", print_integer},
-		{"i", print_integer},
+		{"d", print_dec},
+		{"i", print_int},
 		{"c", print_char},
 		{"s", print_string},
-		{"b", print_binary},
-		{"u", print_unsigned_integer},
+		{"b", print_bin},
+		{"u", print_unsigned},
 		{"o", print_octal},
 		{"x", print_hex},
 		{"X", print_HEX},

@@ -44,14 +44,15 @@ char *convert(unsigned long int num, int base, int lowercase);
 /**
  * struct convert - defines a structure
  *
- * @sy: specifier
+ * @sym: specifier
  * @f: The function associated
  */
 
-typedef struct convert
+struct convert
 {
 	char *sym;
 	int (*f)(va_list);
-} conv_f;
+};
+typedef struct convert conver_t;
 
 #endif
